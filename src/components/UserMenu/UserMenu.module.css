@@ -1,0 +1,36 @@
+.wrap {
+  margin-left: auto;
+  display: flex;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  width: 80px;
+  margin: 0;
+  padding: 5px;
+  border: 2px solid #000000;
+  color: #ffffff;
+  border-radius: 10px;
+  background: #000000;
+  outline: none;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:focus {
+  border: 2px solid rgb(29, 46, 199);
+  background: rgb(29, 46, 199);
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.text {
+  margin-right: 10px;
+}
