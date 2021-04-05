@@ -5,6 +5,7 @@ import Spinner from '../components/Spinner';
 import { getLoading } from '../redux/loading/loading-selector';
 import { getErrorMessage } from '../redux/error';
 import ErrorPage from '../components/ErrorPage';
+import PropTypes from 'prop-types';
 import styles from '../components/ContactForm/ContactForm.module.css';
 
 class RegisterPage extends Component {
@@ -92,6 +93,12 @@ class RegisterPage extends Component {
     );
   }
 }
+
+RegisterPage.propTypes = {
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+  registerUser: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   loading: getLoading(state),

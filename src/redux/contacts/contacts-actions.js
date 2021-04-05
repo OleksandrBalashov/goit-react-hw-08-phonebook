@@ -21,5 +21,6 @@ export const patchContactSuccess = createAction('contact/patchSuccess');
 export const patchContactError = createAction('contact/patchError');
 
 export const editContact = createAction('contact/editContact');
+export const resetContact = createAction('contact/resetEditContact');
 
 export const filterContacts = createAction('contact/Filter');

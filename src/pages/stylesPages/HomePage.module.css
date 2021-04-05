@@ -1,0 +1,13 @@
+.wrap {
+  height: 800px;
+  background-image: url('https://webstockreview.net/images/clipart-telephone-phone-directory.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  text-align: center;
+}
+
+.title {
+  font-size: 60px;
+}

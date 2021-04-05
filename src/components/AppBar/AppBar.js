@@ -5,6 +5,7 @@ import Navigation from '../Navigation';
 import { isAuthenticated } from '../../redux/auth';
 import Layout from '../Layout';
 import UserMenu from '../UserMenu';
+import PropTypes from 'prop-types';
 
 import styles from './AppBar.module.css';
 
@@ -14,7 +15,7 @@ const AppBar = ({ isAuthenticated }) => {
       <Layout>
         <nav className={styles.nav}>
           <Navigation />
-          {isAuthenticated ? <UserMenu /> : <AuthNav />}
+          {!!isAuthenticated ? <UserMenu /> : <AuthNav />}
         </nav>
       </Layout>
     </header>
@@ -24,5 +25,13 @@ const AppBar = ({ isAuthenticated }) => {
 const mapStateToProps = state => ({
   isAuthenticated: isAuthenticated(state),
 });
+
+AppBar.defaultProps = {
+  isAuthenticated: null,
+};
+
+AppBar.propTypes = {
+  isAuthenticated: PropTypes.string,
+};
 
 export default connect(mapStateToProps)(AppBar);

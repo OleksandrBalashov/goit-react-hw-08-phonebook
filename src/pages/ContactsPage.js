@@ -9,6 +9,7 @@ import { fetchContacts } from '../redux/contacts';
 import { getLoading } from '../redux/loading/loading-selector';
 import Spinner from '../components/Spinner';
 import ErrorPage from '../components/ErrorPage';
+import PropTypes from 'prop-types';
 
 class ContactsPage extends Component {
   componentDidMount() {
@@ -29,6 +30,18 @@ class ContactsPage extends Component {
     );
   }
 }
+
+ContactsPage.defaultProps = {
+  loading: false,
+  errorMessage: '',
+};
+
+ContactsPage.propTypes = {
+  totalCount: PropTypes.number.isRequired,
+  loading: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  fetchContacts: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   totalCount: getTotalCount(state),

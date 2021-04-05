@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+import styles from './stylesPages/HomePage.module.css';
 
-class HomePage extends Component {
-  state = {};
-  render() {
-    return <h1>Welcome to Phonebook</h1>;
-  }
-}
+const HomePage = () => (
+  <div className={styles.wrap}>
+    <h1 className={styles.title}>Welcome to</h1>
+  </div>
+);
 
 export default HomePage;

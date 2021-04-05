@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { isAuthenticated } from '../../redux/auth';
 import { logout } from '../../redux/auth';
+import PropTypes from 'prop-types';
 import styles from './UserMenu.module.css';
 
-const UserMenu = ({ name, logout }) => {
+const UserMenu = ({ name = null, logout }) => {
   return (
     <div className={styles.wrap}>
       <div className={styles.wrapper}>
@@ -21,6 +22,11 @@ const UserMenu = ({ name, logout }) => {
       </div>
     </div>
   );
+};
+
+UserMenu.propTypes = {
+  name: PropTypes.string,
+  logout: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

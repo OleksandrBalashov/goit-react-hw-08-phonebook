@@ -8,12 +8,9 @@ const ContactList = ({ contacts, onDeleteContact, editContact }) => {
 
   const filterEditContact = e => {
     const contact = contacts.find(({ id }) => id === e.target.dataset.id);
-    // console.log(contact);
-    // delete contact.id;
     editContact(contact);
   };
 
-  // console.log(editContact);
   return (
     <>
       <ContactFilter />
@@ -49,6 +46,7 @@ const ContactList = ({ contacts, onDeleteContact, editContact }) => {
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
   onDeleteContact: PropTypes.func,
+  editContact: PropTypes.func,
 };
 
 export default ContactList;

@@ -7,18 +7,12 @@ import {
   filterContacts,
   patchContactSuccess,
   editContact,
+  resetContact,
 } from '../contacts';
 
 const itemsReducer = createReducer([], {
   [fetchContactsSuccess]: (_, { payload }) => payload,
-  [addContactSuccess]: (state, { payload }) => {
-    if (state.find(({ name }) => name === payload.name)) {
-      alert(`${payload.name} is already in contacts`);
-      return;
-    }
-
-    return [...state, payload];
-  },
+  [addContactSuccess]: (state, { payload }) => [...state, payload],
   [deleteContactSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
   [patchContactSuccess]: (state, { payload }) =>
@@ -33,6 +27,7 @@ const initialContact = {
 
 const editReducer = createReducer(initialContact, {
   [editContact]: (_, { payload }) => payload,
+  [resetContact]: () => '',
 });
 
 const filterReducer = createReducer('', {

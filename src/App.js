@@ -4,6 +4,7 @@ import AppBar from './components/AppBar';
 import Layout from './components/Layout';
 import NavigationRoutes from './components/Navigation/NavigationRouters';
 import { getLoginUser } from './redux/auth';
+import PropTypes from 'prop-types';
 
 class App extends Component {
   componentDidMount() {
@@ -21,6 +22,10 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  getLoginUser: PropTypes.func,
+};
 
 const mapDispatchToProps = {
   getLoginUser,

@@ -12,6 +12,7 @@ import {
   deleteContactSuccess,
   patchContactError,
   patchContactRequest,
+  resetContact,
 } from '../contacts';
 import { resetError } from '../error';
 
@@ -29,7 +30,16 @@ export const fetchContacts = () => async dispatch => {
   }
 };
 
-export const addContact = contact => async dispatch => {
+export const addContact = contact => async (dispatch, getState) => {
+  const {
+    contacts: { items },
+  } = getState();
+
+  if (items.find(({ name }) => name === contact.name)) {
+    alert(`${contact.name} is already in contacts`);
+    return;
+  }
+
   dispatch(addContactRequest());
 
   try {
@@ -51,6 +61,7 @@ export const patchContacts = (id, contact) => async dispatch => {
   } catch (error) {
     dispatch(patchContactError(error.message));
   } finally {
+    dispatch(resetContact());
   }
 };
 

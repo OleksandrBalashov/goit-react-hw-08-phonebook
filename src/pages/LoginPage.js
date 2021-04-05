@@ -5,6 +5,7 @@ import Spinner from '../components/Spinner';
 import ErrorPage from '../components/ErrorPage';
 import { getLoading } from '../redux/loading/loading-selector';
 import { getErrorMessage } from '../redux/error';
+import PropTypes from 'prop-types';
 import styles from '../components/ContactForm/ContactForm.module.css';
 
 class LoginPage extends Component {
@@ -80,6 +81,12 @@ class LoginPage extends Component {
     );
   }
 }
+
+LoginPage.propTypes = {
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+  loginUser: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   loading: getLoading(state),

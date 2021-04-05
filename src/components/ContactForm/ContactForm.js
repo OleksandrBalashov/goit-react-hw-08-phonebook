@@ -14,7 +14,7 @@ class ContactForm extends Component {
     ...this.props.initialState,
   };
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = prevProps => {
     if (prevProps.contact !== this.props.contact) {
       this.editContact();
     }
@@ -89,7 +89,8 @@ class ContactForm extends Component {
 }
 
 ContactForm.propTypes = {
-  onSubmitForm: PropTypes.func.isRequired,
+  onSubmitForm: PropTypes.func,
+  onPatchContact: PropTypes.func,
 };
 
 export default ContactForm;
