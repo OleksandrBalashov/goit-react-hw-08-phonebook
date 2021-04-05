@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
-import { isAuthenticated } from '../../../../redux/auth';
-import routes from '../../../../routes';
+import { isAuthenticated } from '../../../../../redux/auth';
+import routes from '../../../../../routes';
 
 const PublicRoutes = ({ isAuthenticated }) =>
   routes.map(

@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { isAuthenticated } from '../redux/auth';
-import routes from '../routes';
+import { isAuthenticated } from '../../redux/auth';
+import routes from '../../routes';
 import styles from './Navigation.module.css';
 
 const Navigation = ({ isAuthenticated }) => {

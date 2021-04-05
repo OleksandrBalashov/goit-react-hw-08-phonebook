@@ -6,9 +6,12 @@ import {
   addContactError,
   addContactRequest,
   addContactSuccess,
+  patchContactSuccess,
   deleteContactError,
   deleteContactRequest,
   deleteContactSuccess,
+  patchContactError,
+  patchContactRequest,
 } from '../contacts';
 import { resetError } from '../error';
 
@@ -38,8 +41,17 @@ export const addContact = contact => async dispatch => {
   }
 };
 
-export const patchContacts = id => async dispatch => {
-  //!!!
+export const patchContacts = (id, contact) => async dispatch => {
+  dispatch(patchContactRequest());
+
+  try {
+    const { data } = await axios.patch(`/contacts/${id}`, contact);
+
+    dispatch(patchContactSuccess(data));
+  } catch (error) {
+    dispatch(patchContactError(error.message));
+  } finally {
+  }
 };
 
 export const deleteContact = id => async dispatch => {

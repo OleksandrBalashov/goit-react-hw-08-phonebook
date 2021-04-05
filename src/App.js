@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AppBar from './components/AppBar';
 import Layout from './components/Layout';
-import NavigationRoutes from './Navigation/NavigationRouters';
+import NavigationRoutes from './components/Navigation/NavigationRouters';
 import { getLoginUser } from './redux/auth';
 
 class App extends Component {

@@ -3,9 +3,17 @@ import ContactFilter from '../FilterContacts';
 import PropTypes from 'prop-types';
 import styles from './Contacts.module.css';
 
-const ContactList = ({ contacts, onDeleteContact }) => {
+const ContactList = ({ contacts, onDeleteContact, editContact }) => {
   const onDelete = e => onDeleteContact(e.target.dataset.id);
 
+  const filterEditContact = e => {
+    const contact = contacts.find(({ id }) => id === e.target.dataset.id);
+    // console.log(contact);
+    // delete contact.id;
+    editContact(contact);
+  };
+
+  // console.log(editContact);
   return (
     <>
       <ContactFilter />
@@ -15,6 +23,14 @@ const ContactList = ({ contacts, onDeleteContact }) => {
             <p className={styles.text}>
               {name}: {number}
             </p>
+            <button
+              data-id={id}
+              type="button"
+              className={styles.button + ' ' + styles.buttonEdit}
+              onClick={filterEditContact}
+            >
+              Edit
+            </button>
             <button
               data-id={id}
               type="button"

@@ -10,7 +10,6 @@ import styles from '../components/ContactForm/ContactForm.module.css';
 class LoginPage extends Component {
   static defaultProps = {
     initialState: {
-      name: '',
       email: '',
       password: '',
     },
@@ -26,6 +25,10 @@ class LoginPage extends Component {
 
   onSubmitForm = e => {
     e.preventDefault();
+
+    const { email, password } = this.state;
+
+    if (email === '' && password === '') return;
 
     this.props.loginUser(this.state);
     this.reset();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AuthNav from '../../Navigation/AuthNav';
-import Navigation from '../../Navigation';
+import AuthNav from '../Navigation/AuthNav';
+import Navigation from '../Navigation';
 import { isAuthenticated } from '../../redux/auth';
 import Layout from '../Layout';
 import UserMenu from '../UserMenu';

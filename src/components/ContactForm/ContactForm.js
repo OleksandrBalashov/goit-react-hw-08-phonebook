@@ -14,6 +14,12 @@ class ContactForm extends Component {
     ...this.props.initialState,
   };
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.contact !== this.props.contact) {
+      this.editContact();
+    }
+  };
+
   handleInputChange = ({ currentTarget: { name, value } }) => {
     this.setState({ [name]: value });
   };
@@ -24,7 +30,10 @@ class ContactForm extends Component {
     const { name, number } = this.state;
     if (name === '' && number === '') return;
 
-    this.props.onSubmitForm(this.state);
+    !!this.state.id
+      ? this.props.onPatchContact(this.state.id, { name, number })
+      : this.props.onSubmitForm(this.state);
+
     this.reset();
   };
 
@@ -32,12 +41,19 @@ class ContactForm extends Component {
     this.setState({ ...this.props.initialState });
   };
 
+  editContact = () => {
+    this.setState({ ...this.props.contact });
+  };
+
   render() {
     const { name, number } = this.state;
+    const { name: userName } = this.props.contact;
 
     return (
       <div className={styles.wrap}>
-        <h2 className={styles.title}>Create contact</h2>
+        <h2 className={styles.title}>
+          {userName ? 'Edit contact' : 'Create contact'}
+        </h2>
         <form className={styles.form} onSubmit={this.handlerSubmitContactFrom}>
           <div className={styles.wrapLabel}>
             <label className={styles.label}>
@@ -64,7 +80,7 @@ class ContactForm extends Component {
             </label>
           </div>
           <button type="submit" className={styles.button}>
-            Add contact
+            {userName ? 'Edit contact' : 'Add contact'}
           </button>
         </form>
       </div>

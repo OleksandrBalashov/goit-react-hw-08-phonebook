@@ -23,6 +23,10 @@ class RegisterPage extends Component {
   handlerSubmitForm = e => {
     e.preventDefault();
 
+    const { name, email, password } = this.state;
+
+    if (name === '' && email === '' && password === '') return;
+
     this.props.registerUser(this.state);
     this.reset();
   };

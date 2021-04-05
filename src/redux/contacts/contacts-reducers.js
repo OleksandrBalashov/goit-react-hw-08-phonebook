@@ -5,6 +5,8 @@ import {
   addContactSuccess,
   deleteContactSuccess,
   filterContacts,
+  patchContactSuccess,
+  editContact,
 } from '../contacts';
 
 const itemsReducer = createReducer([], {
@@ -19,6 +21,18 @@ const itemsReducer = createReducer([], {
   },
   [deleteContactSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
+  [patchContactSuccess]: (state, { payload }) =>
+    state.map(contact => (contact.id === payload.id ? payload : contact)),
+});
+
+const initialContact = {
+  name: null,
+  number: null,
+  id: null,
+};
+
+const editReducer = createReducer(initialContact, {
+  [editContact]: (_, { payload }) => payload,
 });
 
 const filterReducer = createReducer('', {
@@ -28,4 +42,5 @@ const filterReducer = createReducer('', {
 export default combineReducers({
   items: itemsReducer,
   filter: filterReducer,
+  editContact: editReducer,
 });

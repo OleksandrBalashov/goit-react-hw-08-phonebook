@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { isAuthenticated } from '../../../../redux/auth';
-import routes from '../../../../routes';
+import { isAuthenticated } from '../../../../../redux/auth';
+import routes from '../../../../../routes';
 
 const PrivateRoutes = ({ isAuthenticated }) =>
   routes.map(

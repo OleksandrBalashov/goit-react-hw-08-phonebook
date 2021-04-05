@@ -12,7 +12,7 @@ import {
   registerError,
   registerRequest,
   registerSuccess,
-} from '../auth/auth-actions';
+} from '../auth';
 import {
   addContactError,
   addContactRequest,
@@ -23,6 +23,9 @@ import {
   fetchContactsError,
   fetchContactsRequest,
   fetchContactsSuccess,
+  patchContactError,
+  patchContactRequest,
+  patchContactSuccess,
 } from '../contacts';
 
 const loadingReducer = createReducer(false, {
@@ -33,6 +36,10 @@ const loadingReducer = createReducer(false, {
   [addContactRequest]: () => true,
   [addContactSuccess]: () => false,
   [addContactError]: () => false,
+
+  [patchContactRequest]: () => true,
+  [patchContactSuccess]: () => false,
+  [patchContactError]: () => false,
 
   [deleteContactRequest]: () => true,
   [deleteContactSuccess]: () => false,
