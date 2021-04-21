@@ -52,5 +52,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchContacts,
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(ContactsPage);
