@@ -15,6 +15,10 @@ import AuthReducer from './auth/auth-reducers';
 import loadingReducer from './loading/loading-reducer';
 import { errorReducer } from './error';
 
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
 const middleware = [
   ...getDefaultMiddleware({
     serializableCheck: {
@@ -43,5 +47,7 @@ const store = configureStore({
 const persistor = persistStore(store);
 
 const STORE = { store, persistor };
+
+
 
 export default STORE;

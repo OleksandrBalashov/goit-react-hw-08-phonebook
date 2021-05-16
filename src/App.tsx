@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import AppBar from './components/AppBar';
 import Layout from './components/Layout';
 import NavigationRoutes from './components/Navigation/NavigationRouters';
 import { getLoginUser } from './redux/auth';
-import PropTypes from 'prop-types';
 
-class App extends Component {
+interface Props extends PropsFromRedux {
+  getLoginUser(): Promise<void>;
+}
+
+class App extends Component<Props> {
   componentDidMount() {
     this.props.getLoginUser();
   }
@@ -23,12 +26,12 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  getLoginUser: PropTypes.func,
-};
-
 const mapDispatchToProps = {
   getLoginUser,
 };
 
-export default connect(null, mapDispatchToProps)(App);
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(App);
