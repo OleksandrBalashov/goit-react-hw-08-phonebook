@@ -10,14 +10,16 @@ import {
   registerError,
   registerRequest,
   registerSuccess,
-} from '../auth';
+} from '.';
 import { resetError } from '../error';
 import { loginError, logoutError } from './auth-actions';
+import { RegisterType, LoginTypes } from '../../interfaces/interfaces';
+import { AppDispatch, RootState } from '../store';
 
-axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
 const token = {
-  set(token) {
+  set(token: string) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
   unset() {
@@ -25,9 +27,12 @@ const token = {
   },
 };
 
-const errorReset = dispatch => setTimeout(() => dispatch(resetError('')), 3000);
+const errorReset = (dispatch: AppDispatch) =>
+  setTimeout(() => dispatch(resetError('')), 3000);
 
-export const registerUser = user => async dispatch => {
+export const registerUser = (user: RegisterType) => async (
+  dispatch: AppDispatch,
+) => {
   dispatch(registerRequest());
 
   try {
@@ -43,7 +48,9 @@ export const registerUser = user => async dispatch => {
   }
 };
 
-export const loginUser = user => async dispatch => {
+export const loginUser = (user: LoginTypes) => async (
+  dispatch: AppDispatch,
+) => {
   dispatch(loginRequest());
 
   try {
@@ -59,7 +66,12 @@ export const loginUser = user => async dispatch => {
   }
 };
 
-export const getLoginUser = () => async (dispatch, getState) => {
+type GetStateType = () => RootState;
+
+export const getLoginUser = () => async (
+  dispatch: AppDispatch,
+  getState: GetStateType,
+) => {
   const {
     auth: { token: persistedToken },
   } = getState();
@@ -80,7 +92,7 @@ export const getLoginUser = () => async (dispatch, getState) => {
   }
 };
 
-export const logout = () => async dispatch => {
+export const logout = () => async (dispatch: AppDispatch) => {
   dispatch(logoutRequest());
 
   try {

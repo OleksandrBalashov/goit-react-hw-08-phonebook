@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { registerUser } from '../redux/auth';
 import Spinner from '../components/Spinner';
 import { getLoading } from '../redux/loading/loading-selector';
 import { getErrorMessage } from '../redux/error';
 import ErrorPage from '../components/ErrorPage';
-import PropTypes from 'prop-types';
 import styles from '../components/ContactForm/ContactForm.module.css';
+import { RootState } from '../redux/store';
 
-class RegisterPage extends Component {
-  static defaultProps = {
-    initialState: {
-      name: '',
-      email: '',
-      password: '',
-    },
+type PropsRegister = ConnectedProps<typeof connector>;
+
+interface StateTypes {
+  name: string;
+  email: string;
+  password: string;
+}
+
+interface PropsTypes extends PropsRegister {
+  loading: boolean;
+  error: string;
+}
+
+class RegisterPage extends Component<PropsTypes, StateTypes> {
+  state: StateTypes = {
+    name: '',
+    email: '',
+    password: '',
   };
 
-  state = {
-    ...this.props.initialState,
-  };
-
-  handlerSubmitForm = e => {
+  handlerSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const { name, email, password } = this.state;
@@ -29,15 +36,18 @@ class RegisterPage extends Component {
     if (name === '' && email === '' && password === '') return;
 
     this.props.registerUser(this.state);
+
     this.reset();
   };
 
-  handleChangeInput = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
+  handleChangeInput = ({
+    target: { name, value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ [name]: value } as Pick<StateTypes, keyof StateTypes>);
   };
 
   reset = () => {
-    this.setState({ ...this.props.initialState });
+    this.setState({ name: '', email: '', password: '' });
   };
 
   render() {
@@ -74,7 +84,7 @@ class RegisterPage extends Component {
             <label className={styles.label}>
               <p className={styles.text}>Password:</p>
               <input
-                stype="password"
+                type="password"
                 name="password"
                 value={password}
                 placeholder=" "
@@ -94,13 +104,7 @@ class RegisterPage extends Component {
   }
 }
 
-RegisterPage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.string,
-  registerUser: PropTypes.func,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   loading: getLoading(state),
   error: getErrorMessage(state),
 });
@@ -109,4 +113,6 @@ const mapDispatchToProps = {
   registerUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default RegisterPage;
