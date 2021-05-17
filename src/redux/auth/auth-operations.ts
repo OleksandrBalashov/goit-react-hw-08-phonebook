@@ -13,10 +13,16 @@ import {
 } from '.';
 import { resetError } from '../error';
 import { loginError, logoutError } from './auth-actions';
-import { RegisterType, LoginTypes } from '../../interfaces/interfaces';
+import {
+  RegisterType,
+  LoginTypes,
+  AuthTypes,
+} from '../../interfaces/interfaces';
 import { AppDispatch, RootState } from '../store';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+
+type GetStateType = () => RootState;
 
 const token = {
   set(token: string) {
@@ -34,11 +40,11 @@ export const registerUser = (user: RegisterType) => async (
   dispatch: AppDispatch,
 ) => {
   try {
-    console.log(user);
     dispatch(registerRequest());
+    console.log('user', user);
 
-    const { data } = await axios.post('/users/signup', user);
-
+    const { data } = await axios.post<AuthTypes>('/users/signup', user);
+    console.log('axios data', data);
     token.set(data.token);
 
     dispatch(registerSuccess(data));
@@ -55,7 +61,7 @@ export const loginUser = (user: LoginTypes) => async (
   dispatch(loginRequest());
 
   try {
-    const { data } = await axios.post('/users/login', user);
+    const { data } = await axios.post<AuthTypes>('/users/login', user);
 
     token.set(data.token);
 
@@ -66,8 +72,6 @@ export const loginUser = (user: LoginTypes) => async (
     errorReset(dispatch);
   }
 };
-
-type GetStateType = () => RootState;
 
 export const getLoginUser = () => async (
   dispatch: AppDispatch,
@@ -82,7 +86,7 @@ export const getLoginUser = () => async (
   token.set(persistedToken);
   dispatch(getLoginUserRequest());
   try {
-    const { data } = await axios.get('/users/current');
+    const { data } = await axios.get<LoginTypes>('/users/current');
 
     dispatch(getLoginUserSuccess(data));
   } catch (error) {

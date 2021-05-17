@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { loginUser } from '../redux/auth';
 import Spinner from '../components/Spinner';
 import ErrorPage from '../components/ErrorPage';
 import { getLoading } from '../redux/loading/loading-selector';
 import { getErrorMessage } from '../redux/error';
-import PropTypes from 'prop-types';
 import styles from '../components/ContactForm/ContactForm.module.css';
+import { RootState } from '../redux/store';
 
-class LoginPage extends Component {
-  static defaultProps = {
-    initialState: {
-      email: '',
-      password: '',
-    },
-  };
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
+interface Props extends PropsFromRedux {}
+
+class LoginPage extends Component<Props> {
   state = {
-    ...this.props.initialState,
+    email: '',
+    password: '',
   };
 
-  handleChange = ({ currentTarget: { name, value } }) => {
+  handleChange = ({
+    currentTarget: { name, value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ [name]: value });
   };
 
-  onSubmitForm = e => {
+  onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const { email, password } = this.state;
@@ -36,7 +36,7 @@ class LoginPage extends Component {
   };
 
   reset = () => {
-    this.setState({ ...this.props.initialState });
+    this.setState({ email: '', password: '' });
   };
 
   render() {
@@ -82,13 +82,7 @@ class LoginPage extends Component {
   }
 }
 
-LoginPage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.string,
-  loginUser: PropTypes.func,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   loading: getLoading(state),
   error: getErrorMessage(state),
 });
@@ -97,4 +91,6 @@ const mapDispatchToProps = {
   loginUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(LoginPage);

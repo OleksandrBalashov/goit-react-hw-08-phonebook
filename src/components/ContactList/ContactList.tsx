@@ -1,13 +1,24 @@
 import React from 'react';
 import ContactFilter from '../FilterContacts';
-import PropTypes from 'prop-types';
 import styles from './Contacts.module.css';
+import { PropsContactList } from './ContactListContainer';
 
-const ContactList = ({ contacts, onDeleteContact, editContact }) => {
-  const onDelete = e => onDeleteContact(e.target.dataset.id);
+const ContactList = ({
+  contacts,
+  onDeleteContact,
+  editContact,
+}: PropsContactList) => {
+  const onDelete = ({
+    currentTarget: { dataset },
+  }: React.SyntheticEvent<HTMLButtonElement, MouseEvent>) =>
+    onDeleteContact(dataset.id);
 
-  const filterEditContact = e => {
-    const contact = contacts.find(({ id }) => id === e.target.dataset.id);
+  const filterEditContact = (
+    e: React.SyntheticEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    const contact = contacts.find(
+      ({ id }) => id === e.currentTarget.dataset.id,
+    );
     editContact(contact);
   };
 
@@ -41,12 +52,6 @@ const ContactList = ({ contacts, onDeleteContact, editContact }) => {
       </ul>
     </>
   );
-};
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
-  onDeleteContact: PropTypes.func,
-  editContact: PropTypes.func,
 };
 
 export default ContactList;

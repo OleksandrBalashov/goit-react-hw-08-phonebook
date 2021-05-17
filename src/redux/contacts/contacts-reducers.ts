@@ -5,18 +5,18 @@ import {
   addContactSuccess,
   deleteContactSuccess,
   filterContacts,
-  patchContactSuccess,
+  // patchContactSuccess,
   editContact,
   resetContact,
-} from '../contacts';
+} from '.';
 
 const itemsReducer = createReducer([], {
-  [fetchContactsSuccess]: (_, { payload }) => payload,
-  [addContactSuccess]: (state, { payload }) => [...state, payload],
-  [deleteContactSuccess]: (state, { payload }) =>
+  [fetchContactsSuccess.type]: (_, { payload }) => payload,
+  [addContactSuccess.type]: (state, { payload }) => [...state, payload],
+  [deleteContactSuccess.type]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
-  [patchContactSuccess]: (state, { payload }) =>
-    state.map(contact => (contact.id === payload.id ? payload : contact)),
+  // [patchContactSuccess.type]: (state, { payload }) =>
+  // state.map(contact => (contact.id === payload.id ? payload : contact)),
 });
 
 const initialContact = {
@@ -26,12 +26,12 @@ const initialContact = {
 };
 
 const editReducer = createReducer(initialContact, {
-  [editContact]: (_, { payload }) => payload,
-  [resetContact]: () => '',
+  [editContact.type]: (_, { payload }) => payload,
+  [resetContact.type]: () => '',
 });
 
 const filterReducer = createReducer('', {
-  [filterContacts]: (_, { payload }) => payload,
+  [filterContacts.type]: (_, { payload }) => payload,
 });
 
 export default combineReducers({

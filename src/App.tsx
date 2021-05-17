@@ -5,6 +5,7 @@ import Layout from './components/Layout';
 import NavigationRoutes from './components/Navigation/NavigationRouters';
 import { getLoginUser } from './redux/auth';
 
+type PropsFromRedux = ConnectedProps<typeof connector>;
 interface Props extends PropsFromRedux {
   getLoginUser(): Promise<void>;
 }
@@ -31,7 +32,5 @@ const mapDispatchToProps = {
 };
 
 const connector = connect(null, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
 
 export default connector(App);

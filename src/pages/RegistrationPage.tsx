@@ -9,7 +9,6 @@ import styles from '../components/ContactForm/ContactForm.module.css';
 import { RootState } from '../redux/store';
 import { RegisterType } from '../interfaces/interfaces';
 
-console.log(registerUser);
 type PropsRegister = ConnectedProps<typeof connector>;
 
 interface StateTypes {
