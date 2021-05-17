@@ -1,3 +1,4 @@
+import { ContactType } from './../../interfaces/interfaces';
 import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import {
@@ -5,24 +6,24 @@ import {
   addContactSuccess,
   deleteContactSuccess,
   filterContacts,
-  // patchContactSuccess,
+  patchContactSuccess,
   editContact,
   resetContact,
 } from '.';
 
-const itemsReducer = createReducer([], {
+const itemsReducer = createReducer([] as ContactType[], {
   [fetchContactsSuccess.type]: (_, { payload }) => payload,
   [addContactSuccess.type]: (state, { payload }) => [...state, payload],
   [deleteContactSuccess.type]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
-  // [patchContactSuccess.type]: (state, { payload }) =>
-  // state.map(contact => (contact.id === payload.id ? payload : contact)),
+  [patchContactSuccess.type]: (state, { payload }) =>
+    state.map(contact => (contact.id === payload.id ? payload : contact)),
 });
 
 const initialContact = {
-  name: null,
-  number: null,
-  id: null,
+  name: '',
+  number: '',
+  id: '',
 };
 
 const editReducer = createReducer(initialContact, {

@@ -18,11 +18,10 @@ import {
   LoginTypes,
   AuthTypes,
 } from '../../interfaces/interfaces';
-import { AppDispatch, RootState } from '../store';
+import { AppDispatch } from '../store';
+import { GetStateType } from '../../interfaces/types';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
-
-type GetStateType = () => RootState;
 
 const token = {
   set(token: string) {

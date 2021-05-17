@@ -1,3 +1,4 @@
+import { ContactType } from './../../interfaces/interfaces';
 import axios from 'axios';
 import {
   fetchContactsRequest,
@@ -13,10 +14,12 @@ import {
   patchContactError,
   patchContactRequest,
   resetContact,
-} from '../contacts';
+} from '.';
 import { resetError } from '../error';
+import { AppDispatch } from '../store';
+import { GetStateType } from '../../interfaces/types';
 
-export const fetchContacts = () => async dispatch => {
+export const fetchContacts = () => async (dispatch: AppDispatch) => {
   dispatch(fetchContactsRequest());
 
   try {
@@ -30,7 +33,10 @@ export const fetchContacts = () => async dispatch => {
   }
 };
 
-export const addContact = contact => async (dispatch, getState) => {
+export const addContact = (contact: ContactType) => async (
+  dispatch: AppDispatch,
+  getState: GetStateType,
+) => {
   const {
     contacts: { items },
   } = getState();
@@ -51,7 +57,9 @@ export const addContact = contact => async (dispatch, getState) => {
   }
 };
 
-export const patchContacts = (id, contact) => async dispatch => {
+export const patchContacts = (id: number, contact: ContactType) => async (
+  dispatch: AppDispatch,
+) => {
   dispatch(patchContactRequest());
 
   try {
@@ -65,7 +73,9 @@ export const patchContacts = (id, contact) => async dispatch => {
   }
 };
 
-export const deleteContact = id => async dispatch => {
+export const deleteContact = (id: string | undefined) => async (
+  dispatch: AppDispatch,
+) => {
   dispatch(deleteContactRequest());
 
   try {
