@@ -16,7 +16,7 @@ import { loginError, logoutError } from './auth-actions';
 import { RegisterType, LoginTypes } from '../../interfaces/interfaces';
 import { AppDispatch, RootState } from '../store';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 const token = {
   set(token: string) {
@@ -33,9 +33,10 @@ const errorReset = (dispatch: AppDispatch) =>
 export const registerUser = (user: RegisterType) => async (
   dispatch: AppDispatch,
 ) => {
-  dispatch(registerRequest());
-
   try {
+    console.log(user);
+    dispatch(registerRequest());
+
     const { data } = await axios.post('/users/signup', user);
 
     token.set(data.token);
@@ -80,7 +81,6 @@ export const getLoginUser = () => async (
 
   token.set(persistedToken);
   dispatch(getLoginUserRequest());
-
   try {
     const { data } = await axios.get('/users/current');
 

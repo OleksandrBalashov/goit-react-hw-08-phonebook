@@ -62,7 +62,7 @@ class LoginPage extends Component {
             <label className={styles.label}>
               <p className={styles.text}>Password:</p>
               <input
-                stype="password"
+                type="password"
                 name="password"
                 value={password}
                 placeholder=" "

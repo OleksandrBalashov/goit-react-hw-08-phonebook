@@ -7,7 +7,9 @@ import { getErrorMessage } from '../redux/error';
 import ErrorPage from '../components/ErrorPage';
 import styles from '../components/ContactForm/ContactForm.module.css';
 import { RootState } from '../redux/store';
+import { RegisterType } from '../interfaces/interfaces';
 
+console.log(registerUser);
 type PropsRegister = ConnectedProps<typeof connector>;
 
 interface StateTypes {
@@ -28,7 +30,7 @@ class RegisterPage extends Component<PropsTypes, StateTypes> {
     password: '',
   };
 
-  handlerSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+  handlerSubmitForm = (e: React.FormEvent<HTMLFormElement>): void | null => {
     e.preventDefault();
 
     const { name, email, password } = this.state;
@@ -110,9 +112,9 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = {
-  registerUser,
+  registerUser: (user: RegisterType) => registerUser(user),
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default RegisterPage;
+export default connector(RegisterPage);
