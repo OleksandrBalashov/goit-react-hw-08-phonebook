@@ -1,11 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { isAuthenticated } from '../../redux/auth';
 import { logout } from '../../redux/auth';
-import PropTypes from 'prop-types';
+import { RootState } from '../../redux/store';
 import styles from './UserMenu.module.css';
 
-const UserMenu = ({ name = null, logout }) => {
+type PropsUserMenu = ConnectedProps<typeof connector>;
+
+const UserMenu = ({ name = '', logout }: PropsUserMenu) => {
   return (
     <div className={styles.wrap}>
       <div className={styles.wrapper}>
@@ -24,12 +26,7 @@ const UserMenu = ({ name = null, logout }) => {
   );
 };
 
-UserMenu.propTypes = {
-  name: PropTypes.string,
-  logout: PropTypes.func,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   name: isAuthenticated(state),
 });
 
@@ -37,4 +34,6 @@ const mapDispatchToProps = {
   logout,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(UserMenu);

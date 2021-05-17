@@ -6,10 +6,11 @@ const routes = [
     exact: true,
     restricted: false,
     priv: false,
+    redirectTo: '',
     isNavLink: true,
     path: '/',
-    component: lazy(() =>
-      import('../pages/HomePage' /* webpackChunkName: "HomePage" */),
+    component: lazy(
+      () => import('../pages/HomePage' /* webpackChunkName: "HomePage" */),
     ),
   },
   {
@@ -20,8 +21,9 @@ const routes = [
     restricted: false,
     isNavLink: true,
     path: '/contacts',
-    component: lazy(() =>
-      import('../pages/ContactsPage' /* webpackChunkName: "ContactsPage" */),
+    component: lazy(
+      () =>
+        import('../pages/ContactsPage' /* webpackChunkName: "ContactsPage" */),
     ),
   },
   {
@@ -32,8 +34,8 @@ const routes = [
     redirectTo: '/contacts',
     isNavLink: false,
     path: '/login',
-    component: lazy(() =>
-      import('../pages/LoginPage' /* webpackChunkName: "LoginPage" */),
+    component: lazy(
+      () => import('../pages/LoginPage' /* webpackChunkName: "LoginPage" */),
     ),
   },
   {
@@ -44,10 +46,11 @@ const routes = [
     redirectTo: '/contacts',
     isNavLink: false,
     path: '/register',
-    component: lazy(() =>
-      import(
-        '../pages/RegistrationPage' /* webpackChunkName: "RegisterPage" */
-      ),
+    component: lazy(
+      () =>
+        import(
+          '../pages/RegistrationPage' /* webpackChunkName: "RegisterPage" */
+        ),
     ),
   },
 ];

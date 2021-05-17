@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import styles from './ContactForm.module.css';
+import { PropsForm } from './ContactFormContainer';
 
-class ContactForm extends Component {
-  static defaultProps = {
-    initialState: {
-      name: '',
-      number: '',
-    },
-  };
+interface Props extends PropsForm {
+  id?: string;
+}
 
+class ContactForm extends Component<Props> {
   state = {
-    ...this.props.initialState,
+    name: '',
+    number: '',
+    ...this.props,
   };
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps: PropsForm) => {
     if (prevProps.contact !== this.props.contact) {
       this.editContact();
     }
   };
 
-  handleInputChange = ({ currentTarget: { name, value } }) => {
+  handleInputChange = ({
+    currentTarget: { name, value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ [name]: value });
   };
 
-  handlerSubmitContactFrom = e => {
+  handlerSubmitContactFrom = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const { name, number } = this.state;
@@ -38,7 +39,7 @@ class ContactForm extends Component {
   };
 
   reset = () => {
-    this.setState({ ...this.props.initialState });
+    this.setState({ name: '', number: '' });
   };
 
   editContact = () => {
@@ -87,10 +88,5 @@ class ContactForm extends Component {
     );
   }
 }
-
-ContactForm.propTypes = {
-  onSubmitForm: PropTypes.func,
-  onPatchContact: PropTypes.func,
-};
 
 export default ContactForm;

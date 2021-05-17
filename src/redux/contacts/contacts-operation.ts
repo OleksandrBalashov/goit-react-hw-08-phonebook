@@ -57,7 +57,7 @@ export const addContact = (contact: ContactType) => async (
   }
 };
 
-export const patchContacts = (id: number, contact: ContactType) => async (
+export const patchContacts = (id: string, contact: ContactType) => async (
   dispatch: AppDispatch,
 ) => {
   dispatch(patchContactRequest());

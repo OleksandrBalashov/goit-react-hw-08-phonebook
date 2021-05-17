@@ -82,9 +82,11 @@ export const getLoginUser = () => async (
 
   if (!persistedToken) return;
 
-  token.set(persistedToken);
-  dispatch(getLoginUserRequest());
   try {
+    token.set(persistedToken);
+
+    dispatch(getLoginUserRequest());
+
     const { data } = await axios.get<LoginTypes>('/users/current');
 
     dispatch(getLoginUserSuccess(data));

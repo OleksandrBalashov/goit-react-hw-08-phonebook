@@ -1,12 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { isAuthenticated } from '../../redux/auth';
 import routes from '../../routes';
-import PropTypes from 'prop-types';
 import styles from './Navigation.module.css';
+import { RootState } from '../../redux/store';
 
-const Navigation = ({ isAuthenticated }) => {
+type PropsNavigation = ConnectedProps<typeof connector>;
+
+const Navigation = ({ isAuthenticated }: PropsNavigation) => {
   return (
     <ul className={styles.wrap}>
       {routes.map(({ name, path, exact, isNavLink }) => {
@@ -31,16 +33,10 @@ const Navigation = ({ isAuthenticated }) => {
   );
 };
 
-Navigation.defaultProps = {
-  isAuthenticated: null,
-};
-
-Navigation.propTypes = {
-  isAuthenticated: PropTypes.string,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   isAuthenticated: isAuthenticated(state),
 });
 
-export default connect(mapStateToProps)(Navigation);
+const connector = connect(mapStateToProps);
+
+export default connector(Navigation);

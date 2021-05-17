@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 import { isAuthenticated } from '../../../../../redux/auth';
+// import { RootState } from '../../../../../redux/store';
 import routes from '../../../../../routes';
-import PropTypes from 'prop-types';
+
+// type PublicRoutesProps = ConnectedProps<typeof connector>;
 
 const PublicRoutes = ({ isAuthenticated }) =>
   routes.map(
@@ -31,13 +33,13 @@ const PublicRoutes = ({ isAuthenticated }) =>
       ),
   );
 
-PublicRoutes.defaultProps = {
-  isAuthenticated: null,
-};
+// PublicRoutes.defaultProps = {
+//   isAuthenticated: null,
+// };
 
-PublicRoutes.propsTypes = {
-  isAuthenticated: PropTypes.string,
-};
+// PublicRoutes.propsTypes = {
+//   isAuthenticated: PropTypes.string,
+// };
 
 const mapStateToProps = state => ({
   isAuthenticated: isAuthenticated(state),

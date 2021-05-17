@@ -1,15 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import AuthNav from '../Navigation/AuthNav';
 import Navigation from '../Navigation';
 import { isAuthenticated } from '../../redux/auth';
 import Layout from '../Layout';
 import UserMenu from '../UserMenu';
-import PropTypes from 'prop-types';
-
 import styles from './AppBar.module.css';
+import { RootState } from '../../redux/store';
 
-const AppBar = ({ isAuthenticated }) => {
+export type PropsApp = ConnectedProps<typeof connector>;
+
+const AppBar = ({ isAuthenticated }: PropsApp) => {
   return (
     <header className={styles.header}>
       <Layout>
@@ -22,16 +23,10 @@ const AppBar = ({ isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   isAuthenticated: isAuthenticated(state),
 });
 
-AppBar.defaultProps = {
-  isAuthenticated: null,
-};
+const connector = connect(mapStateToProps);
 
-AppBar.propTypes = {
-  isAuthenticated: PropTypes.string,
-};
-
-export default connect(mapStateToProps)(AppBar);
+export default connector(AppBar);
